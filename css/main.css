@@ -82,49 +82,6 @@ hr { margin: 0; color: lightblue; border-color: lightblue; opacity: 0.2}
     overflow: hidden;
 }
 
-#hide-weather {
-    display: block;
-    z-index: 2;
-    margin: 0 20px 0 auto;
-/*    background-color: rgba(150, 150, 150, 0.9);
-*/    width: 40px;
-    height: 14px;
-    border-radius: 10px;
-    color: white;
-    font-size: 12px;
-    text-align: center;
-}
-
-.weather-container img {
-    display: inline-block;
-    margin-bottom: 5px;
-}
-
-.forecast {
-    display: inline-block;
-    vertical-align: top;
-    font-family: Helvetica, sans-serif;
-}
-
-.forecast h3 {
-    display: block;
-    vertical-align: top;
-    margin: auto;
-    font-size: 17px;
-}
-
-.forecast li {
-    display: inline-block;
-    margin: 0 12px;
-    padding: 0;
-    font-size: 14px;
-}
-
-.forecast li:hover {
-    background-color: rgba(255, 255, 255, 0);
-    color: #7D7D7D;
-}
-
 .reset-container {
     position: absolute;
     z-index: 2;
