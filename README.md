@@ -6,13 +6,13 @@
 ### Basic Description
 This project is designed to show my most visited places in Baltimore city.
 
-### Functionality of the page includes:
+### Functions:
 1. An interactive navigation bar to filter map and navigation bar results using knockout.js, 
 3. Info card to show the location information including streetview for each location. 
 2. reset map button, 
 
 
 ### Sources:
-(http://knockoutjs.com/documentation/introduction.html)
-(http://api.jquery.com/)
-(http://www.w3schools.com/)
+* http://knockoutjs.com/documentation/introduction.html
+* http://api.jquery.com/
+* http://www.w3schools.com/
