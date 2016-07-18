@@ -1,20 +1,11 @@
 var map;
 var markersArray = [];
 
-function loadScript() {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js?' +
-      'key=AIzaSyAFz4NZMLjWLJ7kZC0UJw9on_FGWxh80_c&callback=initialize';
-  document.body.appendChild(script);
-}
-window.onload = loadScript;
-
 //Initialize the map and its contents
 function initialize() {  
     var mapOptions = {
         zoom: 14,
-        center: new google.maps.LatLng(38.896952, -77.029713),
+        center: new google.maps.LatLng(39.289671, -76.611568),
         mapTypeControl: false,
         disableDefaultUI: true
     };
@@ -297,7 +288,7 @@ function noNav() {
             setTimeout(function() {
                 $("#search-nav").hide();
             }, 500);    
-            $("#arrow").attr("src", "img/down-arrow.gif");
+            $("#arrow").attr("src", "img/question-icon.png");
             isNavVisible = false;
 }
 function yesNav() {
@@ -316,7 +307,7 @@ function yesNav() {
                 $(this).css('height','auto').css("max-height", 549);
             });
             }
-            $("#arrow").attr("src", "img/up-arrow.gif");
+            $("#arrow").attr("src", "img/question-icon.png");
             isNavVisible = true;
 }
 
@@ -351,66 +342,66 @@ $(window).resize(function() {
         }    
 });
 
-// //Expand .forecast div on click to see Weather Underground forecast
-// //and shrink back when additionally clicked
-//     //size is repsonsive to smaller screens
-// var weatherContainer = $("#weather-image-container");
-// var isWeatherVisible = false;
-// weatherContainer.click(function() {
-//     if(isWeatherVisible === false) {
-//         if($(window).width() < 670) {
-//             $(".forecast li").css("display", "block");
-//             weatherContainer.animate({
-//                 width: "245"
-//             }, 500);
-//         } else {
-//             $(".forecast li").css("display", "inline-block");
-//             weatherContainer.animate({
-//                 width: "380"
-//             }, 500);
-//         }
-//         isWeatherVisible = true;
-//     } else {
-//         weatherContainer.animate({
-//         width: "80"
-//     }, 500);
-//         isWeatherVisible = false;
-//     }
-// });
+//Expand .forecast div on click to see Weather Underground forecast
+//and shrink back when additionally clicked
+    //size is repsonsive to smaller screens
+var weatherContainer = $("#weather-image-container");
+var isWeatherVisible = false;
+weatherContainer.click(function() {
+    if(isWeatherVisible === false) {
+        if($(window).width() < 670) {
+            $(".forecast li").css("display", "block");
+            weatherContainer.animate({
+                width: "245"
+            }, 500);
+        } else {
+            $(".forecast li").css("display", "inline-block");
+            weatherContainer.animate({
+                width: "380"
+            }, 500);
+        }
+        isWeatherVisible = true;
+    } else {
+        weatherContainer.animate({
+        width: "80"
+    }, 500);
+        isWeatherVisible = false;
+    }
+});
 
-// //GET Weather Underground JSON
-//     //Append Weather forecast for Washington DC to .forecast
-//     //If error on GET JSON, display message
-// var weatherUgUrl = "http://api.wunderground.com/api/8b2bf4a9a6f86794/conditions/q/DC/Washington.json";
+//GET Weather Underground JSON
+    //Append Weather forecast for Washington DC to .forecast
+    //If error on GET JSON, display message
+var weatherUgUrl = "http://api.wunderground.com/api/8b2bf4a9a6f86794/conditions/q/DC/Washington.json";
 
-// $.getJSON(weatherUgUrl, function(data) {
-//     var list = $(".forecast ul");
-//     detail = data.current_observation;
-//     list.append('<li>Temp: ' + detail.temp_f + '° F</li>');
-//     list.append('<li><img style="width: 25px" src="' + detail.icon_url + '">  ' + detail.icon + '</li>');
-// }).error(function(e){
-//         $(".forecast").append('<p style="text-align: center;">Sorry! Weather Underground</p><p style="text-align: center;">Could Not Be Loaded</p>');
-//     });
+$.getJSON(weatherUgUrl, function(data) {
+    var list = $(".forecast ul");
+    detail = data.current_observation;
+    list.append('<li>Temp: ' + detail.temp_f + '° F</li>');
+    list.append('<li><img style="width: 25px" src="' + detail.icon_url + '">  ' + detail.icon + '</li>');
+}).error(function(e){
+        $(".forecast").append('<p style="text-align: center;">Sorry! Weather Underground</p><p style="text-align: center;">Could Not Be Loaded</p>');
+    });
 
-// //Hide and show Weather forecast div from screen on click
-// var isWeatherImageVisible = true;
-// var hideWeatherArrow = $("#hide-weather").find("img");
-// function hideWeather() {
-//     if(isWeatherImageVisible === true) {
-//             $("#weather-image-container").animate({
-//                 height: 0,
-//                 paddingTop: 0
-//             }, 300);
-//         isWeatherImageVisible = false;
-//         hideWeatherArrow.attr("src", "img/small-down-arrow.png"); 
-//     } else {
-//             $("#weather-image-container").animate({
-//                 height: 60,
-//                 paddingTop: 5
-//             }, 300);
-//         isWeatherImageVisible = true;
-//         hideWeatherArrow.attr("src", "img/small-up-arrow.png");
-//     }
-// }
+//Hide and show Weather forecast div from screen on click
+var isWeatherImageVisible = true;
+var hideWeatherArrow = $("#hide-weather").find("img");
+function hideWeather() {
+    if(isWeatherImageVisible === true) {
+            $("#weather-image-container").animate({
+                height: 0,
+                paddingTop: 0
+            }, 300);
+        isWeatherImageVisible = false;
+        hideWeatherArrow.attr("src", "img/small-down-arrow.png"); 
+    } else {
+            $("#weather-image-container").animate({
+                height: 60,
+                paddingTop: 5
+            }, 300);
+        isWeatherImageVisible = true;
+        hideWeatherArrow.attr("src", "img/small-up-arrow.png");
+    }
+}
 
-// $("#hide-weather").click(hideWeather);
+$("#hide-weather").click(hideWeather);
