@@ -1,0 +1,124 @@
+
+* {box-sizing:border-box;}
+*:visited {color: #7D7D7D}
+body {background-color: #CCC; color: #7D7D7D;}
+html, body, #map-canvas {width: 100%; height: 100%; z-index: 1; position: absolute; margin: 0;}
+p {font-size: 12px; margin: 5px 0;}
+strong {font-size: 14px;}
+ul {list-style-type: none; padding-left: 0; margin-bottom: 0;}
+li {font-family: Arial, sans-serif; padding: 10px 0 10px 10px;}
+li:hover {background-color: lightblue; color: white;}
+a {text-decoration: none; color: #7D7D7D;}
+hr { margin: 0; color: lightblue; border-color: lightblue; opacity: 0.2}
+
+#input {
+    margin: 10px 0px 5px 60px;
+    width: 70%;
+    height: 35px;
+    font-size: 17px;
+    font-family: helvetica, sans-serif;
+    color: #9D9D9D;
+    border: none;
+    -webkit-box-shadow: 2px 2px 5px #9D9D9D;
+    outline: none;
+}
+
+#search-container {
+    position: absolute;
+    z-index: 3; 
+}
+
+#search-nav {
+    width: 280px;
+    max-height: 549px;
+    background-color: rgba(256,256,256,.9);
+    border: solid 2px lightblue;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#scroller {
+    max-height: 480px;
+    overflow: scroll;
+    margin: 0;
+    padding: 0;
+}
+
+#arrow {
+    height: 50px;
+    width: 50px;
+}
+
+#arrow-container {
+    position: absolute;
+    z-index: 3; 
+    background-color: none;
+    opacity: 0.9;
+    max-width: 50px;
+    border-radius: 50%;
+    margin: 5px 0 0 5px;
+
+}
+
+.weather-container {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 0;
+    top: 0;
+}
+
+#weather-image-container {
+    display: block;
+    z-index: 2;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 80px;
+    height: 60px;
+    padding-top: 5px;
+    right: 0;
+    margin: 0 0 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.reset-container {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    bottom: 0;
+    float: middle;
+}
+
+#reset,
+#reset:focus {
+
+    float: center;
+    height: 75px;
+    width: 75px;
+    float: right;
+    margin: 0 10px 15px 0;
+    border-radius: 50%;
+    border: solid white 2px;
+    background-color: orange;
+    opacity: 0.9;
+    font-size: 14px;
+    color: white;
+    outline: none;
+}
+
+#reset:hover {
+    background-color: white;
+    color: orange;
+    border: solid orange 2px;
+}
+
+.web-links {
+    color: blue;
+}
+
+.web-links:visited {
+    color: blue;
+}
+
+

@@ -1,25 +1,16 @@
 var map;
 var markersArray = [];
 
-function loadScript() {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js?' +
-      'key=AIzaSyAFz4NZMLjWLJ7kZC0UJw9on_FGWxh80_c&callback=initialize';
-  document.body.appendChild(script);
-}
-window.onload = loadScript;
-
 //Initialize the map and its contents
 function initialize() {  
     var mapOptions = {
-        zoom: 14,
-        center: new google.maps.LatLng(38.896952, -77.029713),
+        zoom: 13,
+        center: new google.maps.LatLng(39.2975031, -76.6178527),
         mapTypeControl: false,
         disableDefaultUI: true
     };
     if($(window).width() <= 1080) {
-        mapOptions.zoom = 13;
+        mapOptions.zoom = 12;
     }
     if ($(window).width() < 850 || $(window).height() < 595) {
         hideNav();
@@ -36,10 +27,10 @@ function initialize() {
     function resetMap() {
         var windowWidth = $(window).width();
         if(windowWidth <= 1080) {
-            map.setZoom(13);
+            map.setZoom(12);
             map.setCenter(mapOptions.center);
         } else if(windowWidth > 1080) {
-            map.setZoom(14);
+            map.setZoom(13);
             map.setCenter(mapOptions.center);   
         }
     }
@@ -67,127 +58,124 @@ function setAllMap() {
 //Provides information for the markers
 var markers = [
     {   
-    title: "The Thomas Jefferson Memorial",
-    lat: 38.881004, 
-    lng: -77.036463,
-    streetAddress: "701 East Basin SW",
-    cityAddress: "Washington, DC 20242",
-    url: "www.nps.gov/thje/index.htm",
+    title: "The Wyman Park Dell",
+    lat: 39.324289, 
+    lng: -76.618217,
+    lat_s: 39.323630,
+    lng_s: -76.617544,
+    streetAddress: "2900 N. Charles St.",
+    cityAddress: "Baltimore, MD 21218",
+    url: "http://www.wymanparkdell.org/",
     id: "nav0",
     visible: ko.observable(true),
     boolTest: true
     },
     {   
-    title: "The Lincoln Memorial",
-    lat: 38.889269, 
-    lng: -77.050176,
-    streetAddress: "2 Lincoln Memorial Cir",
-    cityAddress: "Washington, DC 20037",
-    url: "www.nps.gov/linc/index.htm",
+    title: "The Johns Hopkins Hospital",
+    lat: 39.297668, 
+    lng: -76.593267,
+    lat_s: 39.297270,
+    lng_s: -76.594029,
+    streetAddress: "1800 Orleans St",
+    cityAddress: "Baltimore, MD 21287",
+    url: "http://www.hopkinsmedicine.org/",
     id: "nav1",
     visible: ko.observable(true),
     boolTest: true
     },
     {   
-    title: "The Washington Monument",
-    lat: 38.889484, 
-    lng: -77.0363733,
-    streetAddress: "2 15th St NW",
-    cityAddress: "Washington, DC 20007",
-    url: "www.nps.gov/wamo/index.htm",
+    title: "Downtown Sailing Center",
+    lat: 39.274083, 
+    lng: -76.600268,
+    lat_s: 39.273420,
+    lng_s: -76.601716,
+    streetAddress: "1425 Key Hwy",
+    cityAddress: "Baltimore, MD 21230",
+    url: "http://www.downtownsailing.org/",
     id: "nav2",
     visible: ko.observable(true),
     boolTest: true
     },
     {   
-    title: "The United States Capital",
-    lat: 38.889939, 
-    lng: -77.00905,
-    streetAddress: "East Capitol St NE & First St SE",
-    cityAddress: "Washington, DC 20004",
-    url: "www.visitthecapitol.gov",
+    title: "Johns Hopkins Carey Business School",
+    lat: 39.282481, 
+    lng: -76.601591,
+    lat_s: 39.2824774,
+    lng_s: -76.6020452,
+    streetAddress: "100 International Drive",
+    cityAddress: "Baltimore, MD 21202",
+    url: "http://carey.jhu.edu/",
     id: "nav3",
     visible: ko.observable(true),
     boolTest: true
     },
     {
-    title: "The White House",
-    lat: 38.8989013, 
-    lng: -77.0324048,
-    streetAddress: "1600 Pennsylvania Ave NW SW",
-    cityAddress: "Washington, DC 20500",
-    url: "www.whitehouse.gov",
+    title: "Johns Hopkins University",
+    lat: 39.329792, 
+    lng: -76.618264,
+    lat_s: 39.329077,
+    lng_s: -76.6178572,
+    streetAddress: "3400 N. Charles St.",
+    cityAddress: "Baltimore, MD 21218",
+    url: "https://www.jhu.edu/",
     id: "nav4",
     visible: ko.observable(true),
     boolTest: true
     },
     {   
-    title: "The National WWII Memorial",
-    lat: 38.889443, 
-    lng: -77.040556,
-    streetAddress: "1750 Independence Ave SW",
-    cityAddress: "Washington, DC 20006",
-    url: "www.wwiimemorial.com/",
+    title: "Baltimore Penn Station",
+    lat: 39.307427, 
+    lng: -76.615204,
+    lat_s: 39.307216,
+    lng_s: -76.6163067,
+    streetAddress: "1500 N Charles St",
+    cityAddress: "Baltimore, MD 21201",
+    url: "https://www.amtrak.com",
     id: "nav5",
     visible: ko.observable(true),
     boolTest: true
     },
     {
-    title: "National Gallery of Art",
-    lat: 38.890575, 
-    lng: -77.019764,
-    streetAddress: "6th & Constitution Ave NW",
-    cityAddress: "Washington, DC 20565",
-    url: "www.nga.gov/content/ngaweb.html",
+    title: "Washington Monument",
+    lat: 39.297567, 
+    lng: -76.615648,
+    lat_s: 39.2977485,
+    lng_s: -76.6152868,
+    streetAddress: "699 Washington Pl",
+    cityAddress: "Baltimore, MD 21201",
+    url: "mvpconservancy.org",
     id: "nav6",
     visible: ko.observable(true),
     boolTest: true
     },
     {
-    title: "Smithsonian National Museum of Natural History",
-    lat: 38.890505, 
-    lng: -77.026031,
-    streetAddress: "10th St. & Constitution Ave. NW",
-    cityAddress: "Washington, DC 20560",
-    url: "www.mnh.si.edu",
+    title: "Shoyou Sushi",
+    lat: 39.272556, 
+    lng: -76.611922,
+    lat_s: 39.2725012,
+    lng_s: -76.6117091,
+    streetAddress: "1504 Light St",
+    cityAddress: "Baltimore, MD 21230",
+    url: "sushibruce.com",
     id: "nav7",
     visible: ko.observable(true),
     boolTest: true
-    },
-    {
-    title: "Arts and Industries Building",
-    lat: 38.888771, 
-    lng: -77.024374,
-    streetAddress: "900 Jefferson Dr SW",
-    cityAddress: "Washington, DC 20560",
-    url: "www.si.edu/Museums/arts-and-industries-building",
-    id: "nav8",
-    visible: ko.observable(true),
-    boolTest: true
-    }   
+    }
 ];
 
 //Get Google Street View Image for each inidividual marker
     //Passed lat and lng to get each image location
     //Had to pass title for whitehouse & different lat and lng to get images
     //for White House and Capitol
-var headingImageView = [5, 235, 55, 170, 190, 240, -10, 10, 190];     
+var headingImageView = [325, 90, 0, 120, 300, 60, 240, 280];     
 var streetViewImage;
 var streetViewUrl = 'https://maps.googleapis.com/maps/api/streetview?size=180x90&location=';
 
 function determineImage() {
-    if (i === 3) {
-        streetViewImage = streetViewUrl + '38.892052,-77.008888&fov=75&heading=' + headingImageView[i] + '&pitch=10';                 
-    } else if (i === 4) {
-        streetViewImage = streetViewUrl +
-                        markers[i].streetAddress + ',' + markers[i].cityAddress +
-                        '&fov=75&heading=' + headingImageView[i] + '&pitch=10';
-    } else {
        streetViewImage = streetViewUrl +
-                        markers[i].lat + ',' + markers[i].lng +
-                        '&fov=75&heading=' + headingImageView[i] + '&pitch=10'; 
+                        markers[i].lat_s + ',' + markers[i].lng_s +
+                        '&fov=75&heading=' + headingImageView[i] + '&pitch=5'; 
                     }                   
-}
 
 //Sets the markers on the map within the initialize function
     //Sets the infoWindows to each individual marker
@@ -297,7 +285,7 @@ function noNav() {
             setTimeout(function() {
                 $("#search-nav").hide();
             }, 500);    
-            $("#arrow").attr("src", "img/down-arrow.gif");
+            $("#arrow").attr("src", "img/question-icon.png");
             isNavVisible = false;
 }
 function yesNav() {
@@ -316,7 +304,7 @@ function yesNav() {
                 $(this).css('height','auto').css("max-height", 549);
             });
             }
-            $("#arrow").attr("src", "img/up-arrow.gif");
+            $("#arrow").attr("src", "img/question-icon.png");
             isNavVisible = true;
 }
 
@@ -351,66 +339,3 @@ $(window).resize(function() {
         }    
 });
 
-// //Expand .forecast div on click to see Weather Underground forecast
-// //and shrink back when additionally clicked
-//     //size is repsonsive to smaller screens
-// var weatherContainer = $("#weather-image-container");
-// var isWeatherVisible = false;
-// weatherContainer.click(function() {
-//     if(isWeatherVisible === false) {
-//         if($(window).width() < 670) {
-//             $(".forecast li").css("display", "block");
-//             weatherContainer.animate({
-//                 width: "245"
-//             }, 500);
-//         } else {
-//             $(".forecast li").css("display", "inline-block");
-//             weatherContainer.animate({
-//                 width: "380"
-//             }, 500);
-//         }
-//         isWeatherVisible = true;
-//     } else {
-//         weatherContainer.animate({
-//         width: "80"
-//     }, 500);
-//         isWeatherVisible = false;
-//     }
-// });
-
-// //GET Weather Underground JSON
-//     //Append Weather forecast for Washington DC to .forecast
-//     //If error on GET JSON, display message
-// var weatherUgUrl = "http://api.wunderground.com/api/8b2bf4a9a6f86794/conditions/q/DC/Washington.json";
-
-// $.getJSON(weatherUgUrl, function(data) {
-//     var list = $(".forecast ul");
-//     detail = data.current_observation;
-//     list.append('<li>Temp: ' + detail.temp_f + '° F</li>');
-//     list.append('<li><img style="width: 25px" src="' + detail.icon_url + '">  ' + detail.icon + '</li>');
-// }).error(function(e){
-//         $(".forecast").append('<p style="text-align: center;">Sorry! Weather Underground</p><p style="text-align: center;">Could Not Be Loaded</p>');
-//     });
-
-// //Hide and show Weather forecast div from screen on click
-// var isWeatherImageVisible = true;
-// var hideWeatherArrow = $("#hide-weather").find("img");
-// function hideWeather() {
-//     if(isWeatherImageVisible === true) {
-//             $("#weather-image-container").animate({
-//                 height: 0,
-//                 paddingTop: 0
-//             }, 300);
-//         isWeatherImageVisible = false;
-//         hideWeatherArrow.attr("src", "img/small-down-arrow.png"); 
-//     } else {
-//             $("#weather-image-container").animate({
-//                 height: 60,
-//                 paddingTop: 5
-//             }, 300);
-//         isWeatherImageVisible = true;
-//         hideWeatherArrow.attr("src", "img/small-up-arrow.png");
-//     }
-// }
-
-// $("#hide-weather").click(hideWeather);
