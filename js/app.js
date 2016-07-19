@@ -1,6 +1,10 @@
 var map;
 var markersArray = [];
 
+function googleError() {
+    alert("Oops! Google just broke up with me!");
+}
+
 //Initialize the map and its contents
 function initialize() {  
     var mapOptions = {
@@ -187,6 +191,7 @@ function setMarkers(location) {
           position: new google.maps.LatLng(location[i].lat, location[i].lng),
           map: map,
           title: location[i].title,
+           animation: google.maps.Animation.DROP,
           icon: {
             url: 'img/marker.png',
             size: new google.maps.Size(25, 40),
@@ -226,6 +231,16 @@ function setMarkers(location) {
             } else if(windowWidth > 1080) {
                 map.setZoom(16);  
             }
+            if (marker.getAnimation() !== null) {
+              marker.setAnimation(null);
+            } else {
+              marker.setAnimation(google.maps.Animation.BOUNCE);
+                setTimeout(function ()
+                    {
+                        marker.setAnimation(null);
+                        $(marker).dequeue();
+                    }, 1400)
+            }
             map.setCenter(marker.getPosition());
             location[i].picBoolTest = true;
           }; 
@@ -241,6 +256,16 @@ function setMarkers(location) {
             map.setZoom(16);
             map.setCenter(marker.getPosition());
             location[i].picBoolTest = true;
+            if (marker.getAnimation() !== null) {
+              marker.setAnimation(null);
+            } else {
+              marker.setAnimation(google.maps.Animation.BOUNCE);
+                setTimeout(function ()
+                    {
+                        marker.setAnimation(null);
+                        $(marker).dequeue();
+                    }, 1400)
+            }
           }; 
         })(location[i].holdMarker, i));
     }
@@ -338,4 +363,65 @@ $(window).resize(function() {
             }     
         }    
 });
+
+//Expand .forecast div on click to see Weather Underground forecast
+//and shrink back when additionally clicked
+    //size is repsonsive to smaller screens
+var weatherContainer = $("#weather-image-container");
+var isWeatherVisible = false;
+weatherContainer.click(function() {
+    if(isWeatherVisible === false) {
+        if($(window).width() < 670) {
+            $(".forecast li").css("display", "block");
+            weatherContainer.animate({
+                width: "245"
+            }, 500);
+        } else {
+            $(".forecast li").css("display", "inline-block");
+            weatherContainer.animate({
+                width: "380"
+            }, 500);
+        }
+        isWeatherVisible = true;
+    } else {
+        weatherContainer.animate({
+        width: "80"
+    }, 500);
+        isWeatherVisible = false;
+    }
+});
+
+//GET Weather Underground JSON
+    //Append Weather forecast for Washington DC to .forecast
+    //If error on GET JSON, display message
+var weatherUgUrl = "http://api.wunderground.com/api/9ae2f400343d21e9/conditions/q/DC/Washington.json";
+
+$.ajax({weatherUgUrl, success: function(data) {
+    var list = $(".forecast ul");
+    detail = data.current_observation;
+    list.append('<li>Temp: ' + detail.temp_f + '° F</li>');
+    list.append('<li><img style="width: 25px" src="' + detail.icon_url + '">  ' + detail.icon + '</li>');
+    }, error: function(e){
+        $(".forecast").append('<p style="text-align: center;">Sorry! Weather Underground</p><p style="text-align: center;">Could Not Be Loaded</p>');
+    }})
+
+//Hide and show Weather forecast div from screen on click
+var isWeatherImageVisible = true;
+function hideWeather() {
+    if(isWeatherImageVisible === true) {
+            $("#weather-image-container").animate({
+                height: 0,
+                paddingTop: 0
+            }, 300);
+        isWeatherImageVisible = false;
+    } else {
+            $("#weather-image-container").animate({
+                height: 60,
+                paddingTop: 5
+            }, 300);
+        isWeatherImageVisible = true;
+    }
+}
+
+$("#weather-image-container").click(hideWeather);
 

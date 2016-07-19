@@ -6,6 +6,11 @@
 ### Basic Description
 This project is designed to show my most visited places in Baltimore city.
 
+
+### How to use
+**Option 1**: Download or clone the repository and open index.html in your browser locally.
+**Option 2**: click the [Demo link](https://fupangpangpang.github.io/Neighborhood_Map).
+
 ### Functions:
 1. An interactive navigation bar to filter map and navigation bar results using knockout.js, 
 3. Info card to show the location information including streetview for each location. 
