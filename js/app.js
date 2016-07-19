@@ -191,7 +191,7 @@ function setMarkers(location) {
           position: new google.maps.LatLng(location[i].lat, location[i].lng),
           map: map,
           title: location[i].title,
-           animation: google.maps.Animation.DROP,
+          animation: google.maps.Animation.DROP,
           icon: {
             url: 'img/marker.png',
             size: new google.maps.Size(25, 40),
@@ -248,56 +248,84 @@ function setMarkers(location) {
         
         //Click nav element to view infoWindow
             //zoom in and center location on click
-        var searchNav = $('#nav' + i);
-        searchNav.click((function(marker, i) {
-          return function() {
-            infowindow.setContent(location[i].contentString);
-            infowindow.open(map,marker);
-            map.setZoom(16);
-            map.setCenter(marker.getPosition());
-            location[i].picBoolTest = true;
-            if (marker.getAnimation() !== null) {
-              marker.setAnimation(null);
-            } else {
-              marker.setAnimation(google.maps.Animation.BOUNCE);
-                setTimeout(function ()
-                    {
-                        marker.setAnimation(null);
-                        $(marker).dequeue();
-                    }, 1400)
-            }
-          }; 
-        })(location[i].holdMarker, i));
+        // var searchNav = $('#nav' + i);
+        // searchNav.click((function(marker, i) {
+        //   return function() {
+        //     infowindow.setContent(location[i].contentString);
+        //     infowindow.open(map,marker);
+        //     map.setZoom(16);
+        //     map.setCenter(marker.getPosition());
+        //     location[i].picBoolTest = true;
+        //     if (marker.getAnimation() !== null) {
+        //       marker.setAnimation(null);
+        //     } else {
+        //       marker.setAnimation(google.maps.Animation.BOUNCE);
+        //         setTimeout(function ()
+        //             {
+        //                 marker.setAnimation(null);
+        //                 $(marker).dequeue();
+        //             }, 1400)
+        //     }
+        //   }; 
+        // })(location[i].holdMarker, i));
     }
 }
 
 //Query through the different locations from nav bar with knockout.js
     //only display markers and nav elements that match query result
+
+
 var viewModel = {
-    query: ko.observable(''),
+    query: ko.observable('')
+ 
 };
 
-viewModel.markers = ko.dependentObservable(function() {
+viewModel.markers = ko.computed(function() {
     var self = this;
     var search = self.query().toLowerCase();
     return ko.utils.arrayFilter(markers, function(marker) {
     if (marker.title.toLowerCase().indexOf(search) >= 0) {
-            marker.boolTest = true;
+            if (marker.holdMarker) {
+            marker.holdMarker.setVisible(true); // show the marker
+            }
             return marker.visible(true);
         } else {
-            marker.boolTest = false;
-            setAllMap();
+            if (marker.holdMarker) {
+            marker.holdMarker.setVisible(false); // hide the marker
+            }   
             return marker.visible(false);
         }
     });       
 }, viewModel);
 
+viewModel.infofun =   function(data){
+        var i = Number(data.id.substr(3));
+        var marker = markers[i].holdMarker;
+        var infowindow = new google.maps.InfoWindow({
+            content: markers[i].contentString
+        });
+        infowindow.open(map,marker);
+        map.setZoom(16);
+        map.setCenter(marker.getPosition());
+        markers[i].picBoolTest = true;
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function ()
+                {
+                    marker.setAnimation(null);
+                    $(marker).dequeue();
+                }, 1400)
+        };
+    }
+
 ko.applyBindings(viewModel);
 
-//show $ hide markers in sync with nav
-$("#input").keyup(function() {
-setAllMap();
+$("#scroller").delegate(".place", "click", function() {
+    viewModel.infofun(ko.dataFor(this));  //"this" is the element and ko.dataFor(this) returns the item in this case.
 });
+
 
 //Hide and Show entire Nav/Search Bar on click
     // Hide/Show Bound to the arrow button
@@ -396,14 +424,12 @@ weatherContainer.click(function() {
     //If error on GET JSON, display message
 var weatherUgUrl = "http://api.wunderground.com/api/9ae2f400343d21e9/conditions/q/DC/Washington.json";
 
-$.ajax({weatherUgUrl, success: function(data) {
+$.getJSON(weatherUgUrl, function(data) {
     var list = $(".forecast ul");
     detail = data.current_observation;
     list.append('<li>Temp: ' + detail.temp_f + '° F</li>');
     list.append('<li><img style="width: 25px" src="' + detail.icon_url + '">  ' + detail.icon + '</li>');
-    }, error: function(e){
-        $(".forecast").append('<p style="text-align: center;">Sorry! Weather Underground</p><p style="text-align: center;">Could Not Be Loaded</p>');
-    }})
+})
 
 //Hide and show Weather forecast div from screen on click
 var isWeatherImageVisible = true;
@@ -423,5 +449,5 @@ function hideWeather() {
     }
 }
 
-$("#weather-image-container").click(hideWeather);
+$("#hide-weather").click(hideWeather);
 

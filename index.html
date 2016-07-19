@@ -16,12 +16,12 @@
         <div id="search-nav">    
             <input id="input" placeholder="Search…" type="input" data-bind="textInput: query, valueUpdate: 'keydown'" autocomplete="off">
             <div id="scroller">
-                <ul  data-bind="template: {name: 'marker', foreach:markers}">
+                <ul  data-bind="template: {name: 'marker', foreach:markers }">
                 </ul>
                 <script type="text/html" id="marker">
                     <div data-bind="visible: visible">
                         <a href="#" data-bind="attr: {id: id}">
-                            <li>
+                            <li class= "place" >
                                 <strong data-bind="text: title"></strong>
                                 <p data-bind="text: streetAddress"></p>
                                 <p data-bind="text: cityAddress"></p> 
@@ -43,7 +43,8 @@
                 </ul>
             </div>
         </div>
-
+        <div id="hide-weather">
+        </div> 
     </div>  
 
     <div id="arrow-container">
@@ -51,7 +52,7 @@
     </div> 
 
     <div class="reset-container">
-        <button id="reset">Reset Map Zoom</button>
+        <button id="reset"">Reset Map Zoom</button>
     </div>
    
 
