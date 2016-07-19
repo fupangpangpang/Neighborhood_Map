@@ -1,5 +1,6 @@
 var map;
 var markersArray = [];
+var infowindow
 
 function googleError() {
     alert("Oops! Google just broke up with me!");
@@ -21,8 +22,9 @@ function initialize() {
     }
 
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);  
+    infowindow = new google.maps.InfoWindow();
 
-    setMarkers(markers);
+    setMarkers(markers,infowindow);
 
     setAllMap();
 
@@ -44,6 +46,7 @@ function initialize() {
    $(window).resize(function() {
         resetMap();
     }); 
+
 }
 
 //Determines if markers should be visible
@@ -184,7 +187,9 @@ function determineImage() {
 //Sets the markers on the map within the initialize function
     //Sets the infoWindows to each individual marker
     //The markers are inidividually set using a for loop
-function setMarkers(location) {
+
+
+function setMarkers(location, infowindow) {
     
     for(i=0; i<location.length; i++) {
         location[i].holdMarker = new google.maps.Marker({
@@ -215,9 +220,7 @@ function setMarkers(location) {
                                     location[i].cityAddress + '<br></p><a class="web-links" href="http://' + location[i].url + 
                                     '" target="_blank">' + location[i].url + '</a>';
 
-        var infowindow = new google.maps.InfoWindow({
-            content: markers[i].contentString
-        });
+        infowindow.setContent(location[i].contentString)
 
         //Click marker to view infoWindow
             //zoom in and center location on click
@@ -298,12 +301,10 @@ viewModel.markers = ko.computed(function() {
     });       
 }, viewModel);
 
-viewModel.infofun =   function(data){
-        var i = Number(data.id.substr(3));
+viewModel.infofun =   function(i){
         var marker = markers[i].holdMarker;
-        var infowindow = new google.maps.InfoWindow({
-            content: markers[i].contentString
-        });
+        infowindow.setContent(markers[i].contentString)
+
         infowindow.open(map,marker);
         map.setZoom(16);
         map.setCenter(marker.getPosition());
@@ -323,7 +324,7 @@ viewModel.infofun =   function(data){
 ko.applyBindings(viewModel);
 
 $("#scroller").delegate(".place", "click", function() {
-    viewModel.infofun(ko.dataFor(this));  //"this" is the element and ko.dataFor(this) returns the item in this case.
+    viewModel.infofun(Number(ko.dataFor(this).id.substr(3)));  //"this" is the element and ko.dataFor(this) returns the item in this case.
 });
 
 
