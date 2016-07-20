@@ -1,6 +1,6 @@
 var map;
-var markersArray = [];
-var infowindow
+
+var infowindow;
 
 function googleError() {
     alert("Oops! Google just broke up with me!");
@@ -220,11 +220,11 @@ function setMarkers(location, infowindow) {
                                     location[i].cityAddress + '<br></p><a class="web-links" href="http://' + location[i].url + 
                                     '" target="_blank">' + location[i].url + '</a>';
 
-        infowindow.setContent(location[i].contentString)
+        infowindow.setContent(location[i].contentString);
 
         //Click marker to view infoWindow
             //zoom in and center location on click
-        new google.maps.event.addListener(location[i].holdMarker, 'click', (function(marker, i) {
+        google.maps.event.addListener(location[i].holdMarker, 'click', (function(marker, i) {
           return function() {
             infowindow.setContent(location[i].contentString);
             infowindow.open(map,this);
@@ -242,7 +242,7 @@ function setMarkers(location, infowindow) {
                     {
                         marker.setAnimation(null);
                         $(marker).dequeue();
-                    }, 1400)
+                    }, 1400);
             }
             map.setCenter(marker.getPosition());
             location[i].picBoolTest = true;
@@ -283,6 +283,10 @@ var viewModel = {
  
 };
 
+
+
+
+
 viewModel.markers = ko.computed(function() {
     var self = this;
     var search = self.query().toLowerCase();
@@ -303,7 +307,7 @@ viewModel.markers = ko.computed(function() {
 
 viewModel.infofun =   function(i){
         var marker = markers[i].holdMarker;
-        infowindow.setContent(markers[i].contentString)
+        infowindow.setContent(markers[i].contentString);
 
         infowindow.open(map,marker);
         map.setZoom(16);
@@ -317,16 +321,17 @@ viewModel.infofun =   function(i){
                 {
                     marker.setAnimation(null);
                     $(marker).dequeue();
-                }, 1400)
-        };
-    }
+                }, 1400);
+        }
+        if ($(window).width() < 850 || $(window).height() < 595) {
+        hideNav();
+        }
+    };
 
 ko.applyBindings(viewModel);
-
 $("#scroller").delegate(".place", "click", function() {
     viewModel.infofun(Number(ko.dataFor(this).id.substr(3)));  //"this" is the element and ko.dataFor(this) returns the item in this case.
 });
-
 
 //Hide and Show entire Nav/Search Bar on click
     // Hide/Show Bound to the arrow button
@@ -376,7 +381,7 @@ $("#arrow").click(hideNav);
 //Show Nav if screen is resized to >= 850 or height is >= 595
     //Function is run when window is resized
 $(window).resize(function() {
-    var windowWidth = $(window).width();
+
     if ($(window).width() < 850 && isNavVisible === true) {
             noNav();
         } else if($(window).height() < 595 && isNavVisible === true) {
@@ -420,35 +425,17 @@ weatherContainer.click(function() {
     }
 });
 
-//GET Weather Underground JSON
-    //Append Weather forecast for Washington DC to .forecast
-    //If error on GET JSON, display message
-var weatherUgUrl = "http://api.wunderground.com/api/9ae2f400343d21e9/conditions/q/DC/Washington.json";
+   //If error on GET JSON, display message
+var weatherUgUrl = "http://api.wunderground.com/api/9ae2f400343d21e9/conditions/q/MD/Baltimore.json";
 
 $.getJSON(weatherUgUrl, function(data) {
     var list = $(".forecast ul");
     detail = data.current_observation;
     list.append('<li>Temp: ' + detail.temp_f + '° F</li>');
     list.append('<li><img style="width: 25px" src="' + detail.icon_url + '">  ' + detail.icon + '</li>');
-})
+}).error(function() { alert("Ooops, WetherUnderground broke up with me"); });
 
-//Hide and show Weather forecast div from screen on click
-var isWeatherImageVisible = true;
-function hideWeather() {
-    if(isWeatherImageVisible === true) {
-            $("#weather-image-container").animate({
-                height: 0,
-                paddingTop: 0
-            }, 300);
-        isWeatherImageVisible = false;
-    } else {
-            $("#weather-image-container").animate({
-                height: 60,
-                paddingTop: 5
-            }, 300);
-        isWeatherImageVisible = true;
-    }
-}
 
-$("#hide-weather").click(hideWeather);
+
+
 

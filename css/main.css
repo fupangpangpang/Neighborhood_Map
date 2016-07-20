@@ -31,7 +31,7 @@ hr { margin: 0; color: lightblue; border-color: lightblue; opacity: 0.2}
 #search-nav {
     width: 280px;
     max-height: 549px;
-    background-color: rgba(256,256,256,.9);
+    background-color: rgba(255,255,255,.9);
     border: solid 2px lightblue;
     border-radius: 10px;
     overflow: hidden;
@@ -52,7 +52,7 @@ hr { margin: 0; color: lightblue; border-color: lightblue; opacity: 0.2}
 #arrow-container {
     position: absolute;
     z-index: 3; 
-    background-color: none;
+    background-color: transparent;
     opacity: 0.9;
     max-width: 50px;
     border-radius: 50%;
@@ -118,13 +118,11 @@ hr { margin: 0; color: lightblue; border-color: lightblue; opacity: 0.2}
     z-index: 2;
     width: 100%;
     bottom: 0;
-    float: middle;
 }
 
 #reset,
 #reset:focus {
 
-    float: center;
     height: 75px;
     width: 75px;
     float: right;
