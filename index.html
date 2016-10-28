@@ -2,64 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Neighborhood Map</title>
-
+    <link rel="stylesheet" href="css/main.css" >
 
 </head>
 <body>
-    <div id="map-canvas"></div>
+    <div id="map"></div>
 
-    <div id="search-container">
-
-        <div id="search-nav">    
-            <input id="input" placeholder="Search…" type = "text" data-bind="textInput: query, valueUpdate: 'keydown'" autocomplete="off">
-            <div id="scroller">
-                <ul  data-bind="template: {name: 'marker', foreach:markers }">
-                </ul>
-                <script type="text/html" id="marker">
-                    <div data-bind="visible: visible">
-                        <a href="#" data-bind="attr: {id: id}">
-                            <li class= "place" >
-                                <strong data-bind="text: title"></strong>
-                                <p data-bind="text: streetAddress"></p>
-                                <p data-bind="text: cityAddress"></p> 
-                            </li>
-                            <hr>
-                        </a>
-                    </div>
-                </script>    
-            </div>
-        </div> 
-    </div>
-
-    <div class="weather-container">
-        <div id="weather-image-container">
-            <img src="img/weather-underground.png" alt="Weather Underground Logo">
-            <div class="forecast">
-                <h3>Baltimore City Weather Forecast</h3>
-                <ul style="margin: 0">
-                </ul>
-            </div>
+        <div id="instafeed">
+            <p>Loading...</p>
         </div>
-        <div id="hide-weather" >
-        </div> 
-    </div>  
 
-    <div id="arrow-container">
-        <img id="arrow" src="img/question-icon.png" alt="arrow image">
-    </div> 
+    <!-- Add instagram nearby photo -->
+    <!-- Add latest twitter nearby -->
+    <!-- Add search box -->
 
-    <div class="reset-container">
-        <button id="reset">Reset Map Zoom</button>
+    <div id="searchpanel">
+        <div id = "searchbox">
+            <input id = "searchinput" placeholder="Search Neighborhood Map" type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
+        </div>
+        <div id = "searchlist">
+            <ul data-bind="template: {name:'marker', foreach:filteredMarkers}"></ul>
+            <script type="text/html" id="marker">
+                <li data-bind = "click: $parent.clickmarker" class = "searchlist-item">
+                    <strong data-bind="text: title"></strong> <br>
+                    <span data-bind="text: streetAddress"></span> <br>
+                    <span data-bind="text: url"></span>
+                </li>
+            </script>
+
+
+        </div>
+
     </div>
-   
 
-    <link rel="stylesheet" href="css/main.css" >
-    <script async type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script async type="text/javascript" src="js/lib/knockout-3.4.0.js"></script>
-    <script async type="text/javascript" src="js/app.js"></script>
-    <script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFz4NZMLjWLJ7kZC0UJw9on_FGWxh80_c&callback=initialize" onerror="googleError()"> </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/lib/knockout-3.4.0.js"></script>
+    <script type="text/javascript" src="js/instafeed.min.js"></script>
+    <script src="js/bundle.js"></script>
+    <script async defer type="text/javascript" src="js/main.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSLh2XHzCCcEeGBGMG8YdTuVCzPslLZEY&callback=initMap" onerror="googleError()"></script>
+
+
+
+
 
 </body>
 </html>
+2
