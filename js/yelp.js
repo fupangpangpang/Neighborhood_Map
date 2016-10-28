@@ -11,7 +11,7 @@ var yelp = new Yelp({
 // See http://www.yelp.com/developers/documentation/v2/search_api
 yelp.search({ term: 'food', location: 'Montreal' })
 .then(function (data) {
-  console.log(data);
+  $('.instafeed').text(data);
 })
 .catch(function (err) {
   console.error(err);
