@@ -224,6 +224,8 @@ viewModel.filteredMarkers = ko.computed(function() {
 }, viewModel);
 
 
+
+
 viewModel.clickmarker = function(marker) {
     for (var i in MarkerInfoList){
         if (MarkerInfoList[i].title == marker.title){
@@ -242,6 +244,7 @@ ko.applyBindings(viewModel);
 $("#listbutton").click(function(){
     $("#searchlist").toggle();
 });
+
 
 
 $(window).resize(function() {
