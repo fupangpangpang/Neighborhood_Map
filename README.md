@@ -13,8 +13,7 @@ This project is designed to show my most visited places in Baltimore city.
 
 ### Functions:
 1. An interactive navigation bar to filter map and navigation bar results using knockout.js, 
-3. Info card to show the location information including streetview for each location. 
-2. reset map button, 
+2. Info card to show the location information including the most recent Foursquare tips for each location. 
 
 
 ### Sources:
