@@ -1,6 +1,6 @@
 var map;
 var markers = [];
-
+var TheInfoWindow;
 
 
 var MarkerInfoList = [
@@ -103,7 +103,7 @@ function initMap() {
 
 
 function initMarkers(MarkerInfoList){
-    var TheInfoWindow = new google.maps.InfoWindow({
+    TheInfoWindow = new google.maps.InfoWindow({
         maxWidth: 300
     });
     var bounds = new google.maps.LatLngBounds();
@@ -118,8 +118,12 @@ function initMarkers(MarkerInfoList){
             id: i,
         });
 
-        MarkerInfoList[i].marker.addListener('click', function() {
-            currentmarker = this;
+        MarkerInfoList[i].marker.addListener('click', markerclicklistener);
+    }
+}
+
+function markerclicklistener(){
+    currentmarker = this;
             MarkerInfo = MarkerInfoList[currentmarker.id];
             if (currentmarker.getAnimation() !== null) {
                 currentmarker.setAnimation(null);
@@ -133,8 +137,6 @@ function initMarkers(MarkerInfoList){
             map.setCenter(currentmarker.getPosition());
 
             populateInfoWindow(currentmarker, TheInfoWindow, MarkerInfo);
-        });
-    }
 }
 
 function setbound (map, MarkerInfoList){
@@ -229,8 +231,12 @@ viewModel.filteredMarkers = ko.computed(function() {
 viewModel.clickmarker = function(marker) {
     for (var i in MarkerInfoList){
         if (MarkerInfoList[i].title == marker.title){
-            MarkerInfoList[i].marker.setVisible(true);
+            currentmarker = MarkerInfoList[i].marker;
+            currentmarker.setVisible(true);
+            currentmarker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function(){ currentmarker.setAnimation(null); }, 1400);
             setbound(map, MarkerInfoList);
+            populateInfoWindow(currentmarker, TheInfoWindow, MarkerInfoList[i]);
         } else {
             MarkerInfoList[i].marker.setVisible(false);
             setbound(map, MarkerInfoList);
